@@ -249,7 +249,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   sessionStorage.setItem(key,'1');
   var eventId=sessionId||'purchase_monthly_'+Date.now();
   fbq('track','Purchase',{
-    value:499.00,
+    value:2.00,
     currency:'AED',
     content_name:'GCC Operator Network - Monthly'
   },{eventID:eventId});
@@ -266,7 +266,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   var eventId=sessionId||'purchase_monthly_'+Date.now();
   ttq.track('CompletePayment',{
     contents:[{content_id:'gcc-monthly',content_type:'product',content_name:'GCC Operator Network - Monthly'}],
-    value:499.00,
+    value:2.00,
     currency:'AED',
     event_id:eventId
   });

@@ -300,7 +300,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
       <span class="hidemob">GCC // UAE-FIRST</span>
       <span class="clock mono" id="sysClock">--:--:--</span>
     </div>
-    <a class="cta-btn" href="https://buy.stripe.com/bJefZja6sbUw963fG33Ru00" target="_blank" rel="noopener">Join — AED 499/mo</a>
+    <a class="cta-btn" href="https://buy.stripe.com/7sYeVf4M88Ikaa751p3Ru02" target="_blank" rel="noopener">Join — AED 499/mo</a>
   </div>
 </header>
 
@@ -320,7 +320,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     </div>
     <p class="builders">This is not for people who want to consume. <em>This is for builders.</em></p>
     <div class="hero-cta">
-      <a class="cta-big" href="https://buy.stripe.com/bJefZja6sbUw963fG33Ru00" target="_blank" rel="noopener">[ Join monthly — AED 499/mo ]</a>
+      <a class="cta-big" href="https://buy.stripe.com/7sYeVf4M88Ikaa751p3Ru02" target="_blank" rel="noopener">[ Join monthly — AED 499/mo ]</a>
     </div>
     <div class="hero-cta" style="margin-top:14px">
       <span class="hero-note"><b>Founding cohort: 50 seats.</b> Price locked at AED 499 for life. Then AED 799.<br>AED 16/day. Your coffee costs more. 14-day full refund. Cancel anytime.</span>
@@ -541,7 +541,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
           <p>Join, sit in both calls, read a full open P&amp;L, lurk the Slack. If within 14 days you don't believe this is the most transparent room in GCC ecommerce, <b>one message gets you a full refund.</b> No forms, no friction, no hard feelings.</p>
         </div>
         <div class="hero-cta" style="margin-top:26px">
-          <a class="cta-big" href="https://buy.stripe.com/bJefZja6sbUw963fG33Ru00" target="_blank" rel="noopener">[ Join monthly — AED 499/mo ]</a>
+          <a class="cta-big" href="https://buy.stripe.com/7sYeVf4M88Ikaa751p3Ru02" target="_blank" rel="noopener">[ Join monthly — AED 499/mo ]</a>
           <a class="cta-big" href="https://buy.stripe.com/cNi14p3I44s45TRctR3Ru01" target="_blank" rel="noopener" style="background:transparent;color:var(--amber);border:1px solid var(--amber)">[ Join annual — AED 3,999/yr ]</a>
         </div>
       </div>
@@ -620,7 +620,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     <h2 class="reveal">50 founding seats. <span class="amber">Open books from day one.</span></h2>
     <p class="copy reveal">Join now and you're in the Slack today, in the first call this week, and reading the first open P&amp;L this month. If it's not the most transparent room in GCC ecommerce, the refund takes one message.</p>
     <div class="hero-cta reveal">
-      <a class="cta-big" href="https://buy.stripe.com/bJefZja6sbUw963fG33Ru00" target="_blank" rel="noopener">[ Take a founding seat — AED 499/mo ]</a>
+      <a class="cta-big" href="https://buy.stripe.com/7sYeVf4M88Ikaa751p3Ru02" target="_blank" rel="noopener">[ Take a founding seat — AED 499/mo ]</a>
     </div>
     <p class="hero-note reveal" style="margin-top:14px">Founding price locked for life at AED 499. Seat 51 pays AED 799. AED 16/day; your coffee costs more.<br>There is no call to book and nobody to convince. Join, or don't. The brands get built either way.</p>
   </div>
@@ -635,7 +635,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
 <!-- ====== MOBILE STICKY CTA ====== -->
 <div class="sticky-cta">
-  <a href="https://buy.stripe.com/bJefZja6sbUw963fG33Ru00" target="_blank" rel="noopener">Join — AED 499/mo.</a>
+  <a href="https://buy.stripe.com/7sYeVf4M88Ikaa751p3Ru02" target="_blank" rel="noopener">Join — AED 499/mo.</a>
 </div>
 
 <script>
@@ -662,14 +662,14 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 // ---- Pixel: InitiateCheckout on Stripe CTA clicks ----
 (function(){
   var plans={
-    'bJefZja6sbUw963fG33Ru00':{value:499,currency:'AED',content_name:'GCC Operator Network - Monthly',content_id:'gcc-monthly'},
+    '7sYeVf4M88Ikaa751p3Ru02':{value:2,currency:'AED',content_name:'GCC Operator Network - Monthly',content_id:'gcc-monthly'},
     'cNi14p3I44s45TRctR3Ru01':{value:3999,currency:'AED',content_name:'GCC Operator Network - Annual',content_id:'gcc-annual'}
   };
   document.addEventListener('click',function(e){
     var a=e.target.closest('a[href*="buy.stripe.com"]');
     if(!a)return;
     var href=a.getAttribute('href')||'';
-    var plan=plans['bJefZja6sbUw963fG33Ru00'];
+    var plan=plans['7sYeVf4M88Ikaa751p3Ru02'];
     for(var id in plans){if(href.indexOf(id)!==-1){plan=plans[id];break;}}
     if(typeof fbq==='function'){
       fbq('track','InitiateCheckout',{
