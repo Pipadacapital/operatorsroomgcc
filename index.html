@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The GCC Ecommerce Operator Network</title>
+<meta name="description" content="Sit inside a live ecommerce venture studio. Open P&Ls, real ad accounts, real decisions, two live calls a week, founders-only events across the UAE. AED 499/month founding membership.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A0B0E;
+  --panel:#0F1116;
+  --panel-2:#13161D;
+  --txt:#E9EBF1;
+  --dim:rgba(233,235,241,.55);
+  --faint:rgba(233,235,241,.32);
+  --amber:#FFB42B;
+  --amber-dim:rgba(255,180,43,.14);
+  --red:#FF5247;
+  --green:#3DDC84;
+  --line:rgba(233,235,241,.12);
+  --line-2:rgba(233,235,241,.07);
+  --max:1060px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .reveal{transition:none !important;opacity:1 !important;transform:none !important}
+  .blink,.dot{animation:none !important}
+}
+body{
+  font-family:'IBM Plex Sans',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--txt);
+  line-height:1.65;
+  font-size:16.5px;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    linear-gradient(rgba(233,235,241,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(233,235,241,.025) 1px,transparent 1px);
+  background-size:52px 52px;
+}
+.mono{font-family:'JetBrains Mono',monospace}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:'JetBrains Mono',monospace;font-weight:800;line-height:1.06;letter-spacing:-.02em;text-transform:uppercase}
+a{color:inherit}
+.amber{color:var(--amber)}
+
+.brk{position:relative}
+.brk::before,.brk::after{content:"";position:absolute;width:14px;height:14px;border:1px solid var(--amber);pointer-events:none}
+.brk::before{top:-1px;left:-1px;border-right:none;border-bottom:none}
+.brk::after{bottom:-1px;right:-1px;border-left:none;border-top:none}
+
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+.blink{animation:blink 1.1s step-end infinite}
+@keyframes dotpulse{0%,100%{opacity:1}50%{opacity:.25}}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);animation:dotpulse 1.6s ease-in-out infinite;vertical-align:middle}
+
+/* ---------- status bar ---------- */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(10,11,14,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:54px;gap:14px}
+.sys{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.06em;color:var(--dim);display:flex;align-items:center;gap:14px;white-space:nowrap;overflow:hidden}
+.sys b{color:var(--txt);font-weight:700}
+.sys .dot{margin-right:6px}
+.sys .clock{color:var(--amber)}
+.cta-btn{flex:none;display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:#0A0B0E;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;padding:9px 16px;text-decoration:none;transition:background .15s}
+.cta-btn:hover{background:var(--txt)}
+.cta-btn:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+
+/* ---------- hero ---------- */
+.hero{padding:84px 0 70px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(0,0,0,.18) 3px 4px);mix-blend-mode:multiply;opacity:.5}
+.prompt{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:24px}
+.prompt::before{content:">_ ";color:var(--faint)}
+.hero h1{font-size:clamp(34px,6.6vw,68px);max-width:17ch}
+.hero .sub{max-width:640px;margin-top:28px;font-size:clamp(16.5px,2.1vw,19px);color:var(--dim)}
+.hero .sub strong{color:var(--txt);font-weight:600}
+.vill{margin-top:28px;max-width:620px;border:1px solid var(--line);background:var(--panel)}
+.vl{display:flex;gap:12px;align-items:baseline;padding:11px 18px;border-bottom:1px dashed var(--line-2);font-size:14.5px;color:var(--dim)}
+.vl:last-child{border-bottom:none}
+.vl::before{content:"x";font-family:'JetBrains Mono',monospace;color:var(--red);font-weight:700;font-size:13px;flex:none}
+.vl b{color:var(--txt);font-weight:600}
+.vl.turn{background:var(--amber-dim)}
+.vl.turn::before{content:"+";color:var(--green)}
+.builders{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:clamp(16px,2.4vw,20px);color:var(--txt);margin-top:24px;text-transform:none}
+.builders em{font-style:normal;color:var(--amber)}
+.hero-cta{margin-top:34px;display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+.cta-big{display:inline-flex;align-items:center;gap:10px;background:var(--amber);color:#0A0B0E;font-family:'JetBrains Mono',monospace;font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:.04em;padding:18px 28px;text-decoration:none;transition:background .15s,transform .12s}
+.cta-big:hover{background:var(--txt)}
+.cta-big[style*="transparent"]:hover{background:var(--amber) !important;color:#0A0B0E !important}
+.cta-big:active{transform:translateY(1px)}
+.cta-big:focus-visible{outline:2px solid var(--amber);outline-offset:4px}
+.cta-ghost{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);color:var(--dim);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.04em;padding:17px 22px;text-decoration:none;transition:border-color .15s,color .15s}
+.cta-ghost:hover{border-color:var(--amber);color:var(--amber)}
+.hero-note{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--faint);line-height:1.7}
+.hero-note b{color:var(--amber);font-weight:600}
+.hero-qual{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--dim);display:flex;flex-wrap:wrap;gap:8px 30px}
+.hero-qual b{color:var(--amber);font-weight:600}
+
+/* ---------- ticker ---------- */
+.strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;background:var(--panel)}
+.strip-inner{display:flex;white-space:nowrap;animation:tick 34s linear infinite}
+@media (prefers-reduced-motion: reduce){.strip-inner{animation:none;flex-wrap:wrap;white-space:normal;justify-content:center}}
+.strip span{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;padding:11px 28px;color:var(--dim)}
+.strip span::before{content:"//";color:var(--amber);margin-right:28px}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- sections ---------- */
+section{padding:84px 0}
+.sec-label{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:20px}
+.sec-label::before{content:">_ ";color:var(--faint)}
+h2{font-size:clamp(26px,4.6vw,44px);max-width:24ch}
+.lede{max-width:660px;margin-top:20px;font-size:17.5px;color:var(--dim)}
+.lede strong{color:var(--txt)}
+.copy{max-width:660px;margin-top:18px;color:var(--dim)}
+.copy + .copy{margin-top:14px}
+.copy strong{color:var(--txt)}
+
+/* manifesto */
+.manif{margin-top:40px;max-width:700px}
+.manif p{font-family:'JetBrains Mono',monospace;font-size:clamp(15.5px,2.2vw,19px);line-height:1.7;color:var(--dim);padding:10px 0;border-bottom:1px dashed var(--line-2)}
+.manif p:last-child{border-bottom:none}
+.manif p b{color:var(--txt)}
+.manif p.hit{color:var(--txt);font-weight:600}
+.manif p.hit em{font-style:normal;color:var(--amber)}
+
+/* ---------- open P&L panel ---------- */
+.pnl{margin-top:44px;max-width:720px;background:var(--panel);border:1px solid var(--line)}
+.pnl-head{border-bottom:1px solid var(--line);padding:14px 22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.pnl-head .t{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--txt)}
+.pnl-head .mono{font-size:10.5px;color:var(--green);letter-spacing:.06em}
+.pnl-body{padding:8px 22px 20px}
+.pl-line{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px dashed var(--line-2);font-size:14.5px;color:var(--dim)}
+.pl-line .mono{font-size:14.5px;font-weight:500;color:var(--txt)}
+.pl-line.neg .mono{color:var(--red)}
+.pl-line.total{border-bottom:none;border-top:1px solid var(--line);margin-top:6px;padding-top:16px}
+.pl-line.total span:first-child{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--txt)}
+.pl-line.total .mono{font-size:24px;font-weight:700;color:var(--green)}
+.pnl-foot{padding:16px 22px;border-top:1px solid var(--line);font-size:14px;color:var(--dim);background:var(--panel-2)}
+.pnl-foot b{color:var(--amber)}
+
+/* ---------- see grid ---------- */
+.see-grid{margin-top:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.see-cell{background:var(--panel);border:1px solid var(--line);padding:18px;transition:border-color .15s}
+.see-cell:hover{border-color:var(--amber)}
+.see-cell b{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--txt);display:block}
+.see-cell span{font-size:12.5px;color:var(--faint);display:block;margin-top:6px}
+
+/* ---------- cadence ---------- */
+.scope{margin-top:44px;background:var(--panel);border:1px solid var(--line)}
+.scope-row{display:grid;grid-template-columns:170px 1fr 130px;gap:18px;padding:19px 22px;border-bottom:1px solid var(--line-2);align-items:start;transition:background .15s}
+.scope-row:last-child{border-bottom:none}
+.scope-row:hover{background:var(--panel-2)}
+.scope-row .sc-ch{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--amber)}
+.scope-row .sc-what{font-size:14.5px;color:var(--dim);max-width:560px}
+.scope-row .sc-what b{color:var(--txt);font-weight:600}
+.scope-row .sc-cad{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--green);text-align:right}
+.scope-foot{padding:16px 22px;border-top:1px solid var(--line);background:var(--panel-2);font-size:14px;color:var(--dim)}
+.scope-foot b{color:var(--txt)}
+
+/* anchor compare */
+.anchor{margin-top:44px;display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:880px}
+.anchor-col{background:var(--panel);border:1px solid var(--line);padding:26px 24px}
+.anchor-col.us{border-color:var(--amber)}
+.anchor-h{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px;color:var(--dim)}
+.anchor-col.us .anchor-h{color:var(--amber)}
+.anchor-col li{list-style:none;padding:8px 0 8px 24px;position:relative;font-size:14px;border-bottom:1px dashed var(--line-2);color:var(--dim)}
+.anchor-col li:last-child{border-bottom:none}
+.anchor-col li::before{content:"x";position:absolute;left:2px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--red)}
+.anchor-col.us li::before{content:"+";color:var(--green)}
+.anchor-price{font-family:'JetBrains Mono',monospace;font-size:clamp(20px,3vw,26px);font-weight:700;margin-top:18px}
+.anchor-col.them .anchor-price{color:var(--red)}
+.anchor-col.us .anchor-price{color:var(--green)}
+
+/* ---------- founder + wall ---------- */
+.founder blockquote{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:clamp(19px,3.2vw,28px);line-height:1.35;max-width:30ch;margin-top:30px;color:var(--txt);text-transform:none;letter-spacing:0}
+.founder blockquote em{font-style:normal;color:var(--amber)}
+.wall{margin-top:46px}
+.wall-group{margin-bottom:30px}
+.wall-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:12px}
+.wall-label::before{content:">_ ";color:var(--faint)}
+.wall-row{display:flex;flex-wrap:wrap;gap:14px}
+.wall-cell{background:var(--panel);border:1px solid var(--line);padding:18px 24px;flex:1;min-width:160px;display:flex;flex-direction:column;justify-content:center;transition:border-color .15s}
+.wall-cell:hover{border-color:var(--amber)}
+.wm{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--txt)}
+.wm-sub{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--faint);margin-top:4px;letter-spacing:.06em}
+.proof-row{margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.proof-cell{background:var(--panel);border:1px solid var(--line);padding:24px 22px}
+.proof-cell .mono{font-size:clamp(22px,3.2vw,30px);font-weight:700;color:var(--amber);display:block}
+.proof-cell span:last-child{font-size:11.5px;color:var(--faint);text-transform:uppercase;letter-spacing:.08em;font-family:'JetBrains Mono',monospace}
+
+/* ---------- pricing ---------- */
+.price-card{margin-top:44px;max-width:780px;background:var(--panel);border:1px solid var(--amber)}
+.price-head{border-bottom:1px solid var(--line);padding:18px 26px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.price-head .t{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--txt)}
+.price-head .mono{font-size:11px;color:var(--amber)}
+.price-body{padding:26px}
+.price-num{font-family:'JetBrains Mono',monospace;font-size:clamp(34px,5.4vw,52px);font-weight:800;color:var(--txt)}
+.price-num small{font-size:14px;color:var(--faint);font-weight:400}
+.price-install{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--dim);margin-top:8px}
+.price-install b{color:var(--txt)}
+.terms{margin-top:24px;border-top:1px solid var(--line)}
+.term{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:start;padding:14px 0;border-bottom:1px solid var(--line-2);font-size:14px;color:var(--dim)}
+.term .tw{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber);font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding-top:2px}
+.term b{color:var(--txt)}
+.guarantee{margin-top:28px;border:1px solid var(--green);padding:22px;position:relative;background:rgba(61,220,132,.04)}
+.guarantee .g-label{position:absolute;top:-9px;left:18px;background:var(--panel);padding:0 10px;font-family:'JetBrains Mono',monospace;font-weight:800;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+.guarantee p{font-size:15px;color:var(--dim)}
+.guarantee p b{color:var(--green)}
+
+/* ---------- fit ---------- */
+.fit-grid{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:880px}
+.fit-col{background:var(--panel);border:1px solid var(--line);border-top:2px solid var(--green);padding:22px}
+.fit-col.not{border-top-color:var(--red)}
+.fit-col h3{font-size:13px;letter-spacing:.1em;margin-bottom:14px;color:var(--txt)}
+.fit-col.not h3{color:var(--red)}
+.fit-col li{list-style:none;padding:9px 0 9px 24px;position:relative;font-size:14px;border-bottom:1px dashed var(--line-2);color:var(--dim)}
+.fit-col li:last-child{border-bottom:none}
+.fit-col li::before{content:"+";position:absolute;left:2px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--green)}
+.fit-col.not li::before{content:"x";color:var(--red)}
+
+/* ---------- faq ---------- */
+.faq{margin-top:40px;max-width:780px;border-top:1px solid var(--line)}
+details{border-bottom:1px solid var(--line-2)}
+summary{cursor:pointer;padding:18px 36px 18px 0;list-style:none;position:relative;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:14.5px;color:var(--txt)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:4px;top:16px;font-family:'JetBrains Mono',monospace;font-size:18px;color:var(--amber)}
+details[open] summary::after{content:"-"}
+details .a{padding:0 0 20px;max-width:660px;font-size:14.5px;color:var(--dim)}
+details .a p + p{margin-top:10px}
+
+footer{border-top:1px solid var(--line);color:var(--faint);padding:24px 0;font-family:'JetBrains Mono',monospace;font-size:11px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+.sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;background:var(--amber)}
+.sticky-cta a{display:flex;align-items:center;justify-content:center;gap:10px;padding:15px;font-family:'JetBrains Mono',monospace;font-weight:800;font-size:13.5px;text-transform:uppercase;letter-spacing:.04em;color:#0A0B0E;text-decoration:none}
+
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:880px){
+  .fit-grid,.anchor{grid-template-columns:1fr}
+  .proof-row{grid-template-columns:1fr}
+  .see-grid{grid-template-columns:1fr 1fr}
+  .scope-row{grid-template-columns:1fr;gap:8px}
+  .scope-row .sc-cad{text-align:left}
+  section{padding:62px 0}
+}
+@media(max-width:640px){
+  .topbar .cta-btn{display:none}
+  .sys span.hidemob{display:none}
+  .sticky-cta{display:block}
+  body{padding-bottom:54px}
+  .see-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ====== STATUS BAR ====== -->
+<header class="topbar">
+  <div class="wrap">
+    <div class="sys">
+      <span><b>OPERATOR</b> NETWORK // GCC</span>
+      <span class="hidemob"><span class="dot"></span>BUILDING LIVE</span>
+      <span class="hidemob">GCC // UAE-FIRST</span>
+      <span class="clock mono" id="sysClock">--:--:--</span>
+    </div>
+    <a class="cta-btn" href="https://buy.stripe.com/bJefZja6sbUw963fG33Ru00" target="_blank" rel="noopener">Join — AED 499/mo</a>
+  </div>
+</header>
+
+<!-- ====== HERO ====== -->
+<section class="hero">
+  <div class="wrap">
+    <div class="prompt">The GCC Ecommerce Operator Network // UAE-first builders<span class="blink">_</span></div>
+    <h1>No gurus. No hype. <span class="amber">Open books.</span></h1>
+    <p class="sub">You already know every version of fake this industry sells:</p>
+    <div class="vill brk">
+      <div class="vl"><span><b>Agency owners</b> promising the world, delivering decks.</span></div>
+      <div class="vl"><span><b>Influencers</b> charging a bomb to repeat headlines.</span></div>
+      <div class="vl"><span><b>The US guru</b> teaching US tactics that die in this region.</span></div>
+      <div class="vl"><span><b>The vlogger</b> who never spent a dirham of his own money, recording "value" with zero depth.</span></div>
+      <div class="vl"><span>Endless TikToks. Tiresome reels. <b>No business. Just wastage.</b></span></div>
+      <div class="vl turn"><span><b>This is the opposite:</b> a live venture studio building real ecommerce brands across the GCC, with the real ad accounts, real P&amp;Ls and real mistakes on the table. Open. In real time.</span></div>
+    </div>
+    <p class="builders">This is not for people who want to consume. <em>This is for builders.</em></p>
+    <div class="hero-cta">
+      <a class="cta-big" href="https://buy.stripe.com/bJefZja6sbUw963fG33Ru00" target="_blank" rel="noopener">[ Join monthly — AED 499/mo ]</a>
+    </div>
+    <div class="hero-cta" style="margin-top:14px">
+      <span class="hero-note"><b>Founding cohort: 50 seats.</b> Price locked at AED 499 for life. Then AED 799.<br>AED 16/day. Your coffee costs more. 14-day full refund. Cancel anytime.</span>
+    </div>
+    <div class="hero-qual">
+      <span><b>01</b>&nbsp; Open P&amp;Ls, every month, including the bad ones</span>
+      <span><b>02</b>&nbsp; Two live calls a week + daily Slack</span>
+      <span><b>03</b>&nbsp; Member-only paid events across the UAE</span>
+    </div>
+  </div>
+</section>
+
+<!-- ====== TICKER ====== -->
+<div class="strip" aria-hidden="true">
+  <div class="strip-inner">
+    <span>Open P&amp;Ls</span><span>Live ad accounts</span><span>Real creatives + prompts</span><span>Klaviyo + WhatsApp flows</span><span>Supplier negotiations</span><span>Inventory forecasts</span><span>The mistakes too</span><span>White Friday, not Black Friday</span>
+    <span>Open P&amp;Ls</span><span>Live ad accounts</span><span>Real creatives + prompts</span><span>Klaviyo + WhatsApp flows</span><span>Supplier negotiations</span><span>Inventory forecasts</span><span>The mistakes too</span><span>White Friday, not Black Friday</span>
+  </div>
+</div>
+
+<!-- ====== MANIFESTO ====== -->
+<section>
+  <div class="wrap">
+    <div class="sec-label reveal">01 // no_gatekeeping</div>
+    <h2 class="reveal">No secret sauce. <span class="amber">No locked tiers.</span></h2>
+    <div class="manif reveal">
+      <p>You've bought access to people before. You know how it goes.</p>
+      <p>You get the screenshots. The success stories. The vague advice.</p>
+      <p>The actual business stays behind the curtain. The real numbers live in a "higher tier." The playbook is always one upsell away.</p>
+      <p class="hit">Not here. <em>Here, the business IS the content.</em></p>
+      <p>We are operators building ecommerce brands in this market with our own money. The network sits inside that work. Everything we do, you see. Everything we learn, you get. <b>The same week it happens, not six months later as a polished case study.</b></p>
+    </div>
+  </div>
+</section>
+
+<!-- ====== OPEN P&L ====== -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-label reveal">02 // open_pnl</div>
+    <h2 class="reveal">The numbers nobody shows. <span class="amber">Every month.</span></h2>
+    <p class="lede reveal">Every month, members see the full P&amp;L of the brands we're building. Not "revenue screenshots." The entire statement, the way it actually looks:</p>
+
+    <div class="pnl brk reveal">
+      <div class="pnl-head">
+        <span class="t">Monthly P&amp;L // member access</span>
+        <span class="mono"><span class="dot"></span> POSTED EVERY MONTH</span>
+      </div>
+      <div class="pnl-body">
+        <div class="pl-line"><span>Revenue (store + marketplace)</span><span class="mono">Full numbers</span></div>
+        <div class="pl-line neg"><span>Ad spend, by platform</span><span class="mono">Full numbers</span></div>
+        <div class="pl-line neg"><span>COGS</span><span class="mono">Full numbers</span></div>
+        <div class="pl-line neg"><span>Shipping + warehousing</span><span class="mono">Full numbers</span></div>
+        <div class="pl-line neg"><span>Returns + RTO losses</span><span class="mono">Full numbers</span></div>
+        <div class="pl-line neg"><span>Marketplace + gateway fees</span><span class="mono">Full numbers</span></div>
+        <div class="pl-line neg"><span>Payroll, software + AI tools</span><span class="mono">Full numbers</span></div>
+        <div class="pl-line total"><span>Net profit</span><span class="mono">The real one</span></div>
+      </div>
+      <div class="pnl-foot">Including the months we get it wrong. <b>A P&amp;L that's only shown when it's green is just another screenshot.</b> Ours posts either way.</div>
+    </div>
+
+    <p class="copy reveal">You'll also see the inputs behind every line: why we picked a product and why we rejected ten others, how we negotiated the supplier, how we priced it, how we forecast the inventory, when we scaled and when we pulled back. <strong>The decision, the reasoning, and then the number it produced.</strong></p>
+  </div>
+</section>
+
+<!-- ====== WHAT YOU'LL SEE ====== -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-label reveal">03 // the_feed</div>
+    <h2 class="reveal">Everything on the table. <span class="amber">As it ships.</span></h2>
+    <div class="see-grid reveal">
+      <div class="see-cell"><b>The ads we launch</b><span>Live campaigns, budgets, and the kill decisions</span></div>
+      <div class="see-cell"><b>The creatives we test</b><span>Winners, losers, and the AI prompts behind both</span></div>
+      <div class="see-cell"><b>The landing pages</b><span>Built per angle, with the conversion data</span></div>
+      <div class="see-cell"><b>The offers we run</b><span>Pricing, bundles, guarantees, and what they did to AOV</span></div>
+      <div class="see-cell"><b>The emails we send</b><span>Klaviyo flows and campaigns, with open and revenue data</span></div>
+      <div class="see-cell"><b>The WhatsApp journeys</b><span>COD confirmation, winback, the RTO numbers they save</span></div>
+      <div class="see-cell"><b>The SOPs we write</b><span>Stolen-ready. Copy them into your own operation</span></div>
+      <div class="see-cell"><b>The tools we pay for</b><span>AI stack, software, freelancers, agencies. With costs.</span></div>
+      <div class="see-cell"><b>The mistakes we make</b><span>What broke, what it cost, what we changed</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== THE ROOMS ====== -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-label reveal">04 // the_rooms</div>
+    <h2 class="reveal">This isn't a content library. <span class="amber">It's an operating room.</span></h2>
+
+    <div class="scope brk reveal">
+      <div class="scope-row">
+        <span class="sc-ch">Slack, direct</span>
+        <span class="sc-what">Ask questions. Post your store, your creatives, your ad account. <b>Get operator feedback the same day.</b> No support tickets, no gatekeepers, no waiting for the next call.</span>
+        <span class="sc-cad">Daily</span>
+      </div>
+      <div class="scope-row">
+        <span class="sc-ch">Growth deep dive</span>
+        <span class="sc-what">Live call reviewing <b>member businesses</b>: Meta, TikTok, Snapchat, creatives, landing pages, retention, offers. Bring your numbers, leave with your next three moves.</span>
+        <span class="sc-cad">Weekly // Live</span>
+      </div>
+      <div class="scope-row">
+        <span class="sc-ch">Operator session</span>
+        <span class="sc-what">We open <b>our own businesses</b>: what we're launching, testing, scaling and fixing that week, with the screens shared. The venture studio, live.</span>
+        <span class="sc-cad">Weekly // Live</span>
+      </div>
+      <div class="scope-row">
+        <span class="sc-ch">Founder events</span>
+        <span class="sc-what">In-person, across the UAE, monthly. Intentionally small. <b>No keynotes, no motivation, no pitching.</b> Founders and operators saying real numbers out loud. <b>Ticketed separately, members only</b>: a paid door keeps the room serious, and founding members get founding pricing on every event.</span>
+        <span class="sc-cad">Monthly // Paid</span>
+      </div>
+      <div class="scope-row">
+        <span class="sc-ch">Guest operators</span>
+        <span class="sc-what"><b>Expert media buyers, developer operators</b>, retention specialists, marketplace and supply chain people, AI builders. People doing the work, not selling courses about it, from some of the fastest-growing brands in the region and beyond. Ask them anything while they're in the room.</span>
+        <span class="sc-cad">Regular</span>
+      </div>
+      <div class="scope-foot">Every call is recorded. The library is included. Miss a week, lose nothing. <b>But this is built for people in the arena, not collectors of recordings.</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== THE ANCHOR ====== -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-label reveal">05 // the_math</div>
+    <h2 class="reveal">What this costs. <span class="amber">What the alternative costs.</span></h2>
+    <div class="anchor reveal">
+      <div class="anchor-col them">
+        <div class="anchor-h">The mastermind industry</div>
+        <ul>
+          <li>AED 20,000 to 50,000 a year</li>
+          <li>Guru on stage, screenshots on slides</li>
+          <li>The real business stays hidden</li>
+          <li>US playbooks pointed at the Gulf</li>
+          <li>Content recorded once, sold forever</li>
+        </ul>
+        <div class="anchor-price">AED 30,000+ / yr</div>
+      </div>
+      <div class="anchor-col us">
+        <div class="anchor-h">The Operator Network</div>
+        <ul>
+          <li>Live venture studio, open P&amp;Ls monthly</li>
+          <li>Operators with their own money on the line</li>
+          <li>Built in this market: White Friday, Ramadan, COD, Noon</li>
+          <li>Two live calls a week + daily Slack + UAE events</li>
+          <li>Cancel anytime, 14-day refund</li>
+        </ul>
+        <div class="anchor-price">AED 499 / mo — less than your daily coffee</div>
+      </div>
+    </div>
+    <p class="copy reveal"><strong>AED 499 a month is AED 16 a day. A flat white at any specialty cafe in Dubai is AED 22.</strong> You will spend more on coffee this month than on watching real businesses get built with the books open. One supplier tactic, one RTO fix, one creative angle that works pays for years of this.</p>
+  </div>
+</section>
+
+<!-- ====== OPERATORS ====== -->
+<section class="founder" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-label reveal">06 // who_is_opening_their_books</div>
+    <blockquote class="reveal">"Every dirham we spend on Meta is our own. Every P&amp;L we'll show you is one <em>we have to answer to ourselves.</em> That's the only transparency that means anything."</blockquote>
+    <p class="copy reveal" style="margin-top:26px">We have been in this industry <strong>since 2015</strong>. We have spent heavily on Meta in the US market, run growth for and alongside global brands as partners and affiliates, and now own and operate ecommerce brands here in the UAE. That is a decade of paid social across two of the hardest markets in the world, on our own money and books we answer to. One of our own brands went from <strong>AED 71K to AED 208K per month at 14% net profit</strong> on the exact systems the network watches us run.</p>
+    <p class="copy reveal">Inside, you will keep learning what actually works on Meta right now: <strong>which creatives, which account structures, which landing pages, which themes</strong>, proven by spend, not by opinion. The mission: help founders build an operating system that takes them to <strong>AED 500,000/month and beyond</strong>, without dependence on agencies, expensive hires or guesswork.</p>
+
+    <div class="wall reveal">
+      <div class="wall-group">
+        <div class="wall-label">Brands we own and operate</div>
+        <div class="wall-row">
+          <div class="wall-cell"><span class="wm">Bodd Active</span><span class="wm-sub">boddactive.ae</span></div>
+          <div class="wall-cell"><span class="wm">Sugandh Lok</span><span class="wm-sub">sugandhlok.com</span></div>
+        </div>
+      </div>
+      <div class="wall-group">
+        <div class="wall-label">Brands we operate growth for</div>
+        <div class="wall-row">
+          <div class="wall-cell"><span class="wm">Ulinen</span><span class="wm-sub">Home linen // UAE</span></div>
+        </div>
+      </div>
+      <div class="wall-group">
+        <div class="wall-label">Global brands we have worked with</div>
+        <div class="wall-row">
+          <div class="wall-cell"><span class="wm">Let's Make Art</span></div>
+          <div class="wall-cell"><span class="wm">BigLife Journal</span></div>
+          <div class="wall-cell"><span class="wm">OnlyEthikal</span></div>
+          <div class="wall-cell"><span class="wm">Aquatein</span></div>
+          <div class="wall-cell"><span class="wm">Oliver Gal</span></div>
+          <div class="wall-cell"><span class="wm">Zygo</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proof-row reveal">
+      <div class="proof-cell"><span class="mono">Open books</span><span>Full P&amp;Ls posted monthly, green or red</span></div>
+      <div class="proof-cell"><span class="mono">Since 2015</span><span>A decade of Meta spend, US + GCC, our own money</span></div>
+      <div class="proof-cell"><span class="mono">50 seats</span><span>Founding cohort. Then the price rises.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== THE DEAL ====== -->
+<section id="pricing" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-label reveal">07 // the_deal</div>
+    <h2 class="reveal">One membership. <span class="amber">Everything open.</span></h2>
+    <div class="price-card brk reveal">
+      <div class="price-head">
+        <span class="t">Operator Network // Founding Cohort</span>
+        <span class="mono">50 SEATS // PRICE LOCKED FOR LIFE</span>
+      </div>
+      <div class="price-body">
+        <div class="price-num">AED 499 <small>/ month</small></div>
+        <p class="price-install">or <b>AED 3,999 / year</b> — four months free. Founding price locked either way.</p>
+        <div class="terms">
+          <div class="term"><span class="tw">Founding 50</span><span><b>The first 50 members keep AED 499 for life.</b> Seat 51 onward pays AED 799. We will never re-open the founding price. This is real, because early members take the risk of an empty room and deserve the reward of a full one.</span></div>
+          <div class="term"><span class="tw">Includes</span><span>Open monthly P&amp;Ls, the full build feed (ads, creatives, prompts, pages, flows, SOPs, tools, costs), daily Slack access, two live calls a week with recordings, expert guest operators, and member-only access to the in-person events.</span></div>
+          <div class="term"><span class="tw">Events</span><span><b>In-person UAE events are ticketed separately</b>, members only. Why: a paid door fills the room with operators, not tourists, and covers real venues. Founding members get founding pricing on every ticket, forever.</span></div>
+          <div class="term"><span class="tw">Commitment</span><span><b>None.</b> Month to month. Cancel in two clicks, no calls, no retention scripts.</span></div>
+        </div>
+        <div class="guarantee">
+          <span class="g-label">The guarantee</span>
+          <p>Join, sit in both calls, read a full open P&amp;L, lurk the Slack. If within 14 days you don't believe this is the most transparent room in GCC ecommerce, <b>one message gets you a full refund.</b> No forms, no friction, no hard feelings.</p>
+        </div>
+        <div class="hero-cta" style="margin-top:26px">
+          <a class="cta-big" href="https://buy.stripe.com/bJefZja6sbUw963fG33Ru00" target="_blank" rel="noopener">[ Join monthly — AED 499/mo ]</a>
+          <a class="cta-big" href="https://buy.stripe.com/cNi14p3I44s45TRctR3Ru01" target="_blank" rel="noopener" style="background:transparent;color:var(--amber);border:1px solid var(--amber)">[ Join annual — AED 3,999/yr ]</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== QUALIFICATION ====== -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-label reveal">08 // who_its_for</div>
+    <h2 class="reveal">Built for operators. Not spectators.</h2>
+    <div class="fit-grid reveal">
+      <div class="fit-col">
+        <h3>Take a seat if</h3>
+        <ul>
+          <li>You run an ecommerce brand in the GCC, or you're seriously building one</li>
+          <li>You'd rather see a real P&amp;L than another success story</li>
+          <li>You'll bring your numbers to the calls and do the work between them</li>
+          <li>You want the operating system before you can afford the operators</li>
+        </ul>
+      </div>
+      <div class="fit-col not">
+        <h3>Skip it if</h3>
+        <ul>
+          <li>You're looking for a get-rich course. We show losses too. It will offend you.</li>
+          <li>You want done-for-you. This room shows you how; it doesn't do it for you.</li>
+          <li>You collect memberships and watch none of them. The recordings won't save you.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== FAQ ====== -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-label reveal">09 // questions</div>
+    <div class="faq reveal">
+      <details>
+        <summary>Are the P&amp;Ls actually real? Whose books open?</summary>
+        <div class="a"><p>The brands we fully own and control open completely, every month, every line, including net profit, including red months. Brands with outside partners open to the extent the partners agree, and we tell you which is which up front. What we will never do is post a "revenue screenshot" with the costs cropped out. If a number is on the P&amp;L, it's the real one.</p></div>
+      </details>
+      <details>
+        <summary>Why would you show everything? What's the catch?</summary>
+        <div class="a"><p>Three reasons. One: transparency is the only thing the guru industry can't copy, because their numbers don't survive daylight. Two: building in public makes our own operation sharper; 50 operators watching is the best accountability money can buy. Three: the best founders in this region end up knowing each other, and we'd rather they meet in our room. We're building these brands either way. The network just opens the door while we do it.</p></div>
+      </details>
+      <details>
+        <summary>I'm pre-launch. Should I join?</summary>
+        <div class="a"><p>If you're seriously building, yes, this is the cheapest education in the market: you'll watch product selection, supplier negotiation, pricing and launch happen live before you spend your own money on those mistakes. If you're collecting ideas with no intention of launching, save your AED 499.</p></div>
+      </details>
+      <details>
+        <summary>What happens on the two weekly calls?</summary>
+        <div class="a"><p>The Growth Deep Dive reviews member businesses: your ad accounts, creatives, landing pages, retention, offers, live on screen. The Operator Session opens ours: what we launched, tested, scaled and fixed that week. Both recorded, library included. Bring numbers, not opinions.</p></div>
+      </details>
+      <details>
+        <summary>Is this UAE-only?</summary>
+        <div class="a"><p>The systems are GCC-wide and most translate anywhere, but the texture is deliberately local: White Friday not Black Friday, Ramadan pacing, COD and RTO management, Tabby and Tamara, Noon and Amazon.ae. The in-person events are UAE-based. If you operate elsewhere in the GCC, everything except the venue still applies.</p></div>
+      </details>
+      <details>
+        <summary>Are the in-person events included in the AED 499?</summary>
+        <div class="a"><p>No, and that's deliberate. Events are ticketed separately and open to members only. A paid door is the only filter that reliably fills a room with people who run real businesses instead of people collecting selfies. Venues, food and small rooms cost real money, and we'd rather charge the attendees than bury it in everyone's membership. Founding members get founding pricing on every event, forever.</p></div>
+      </details>
+      <details>
+        <summary>Can I really cancel anytime?</summary>
+        <div class="a"><p>Yes. Month to month, cancel in two clicks. And inside the first 14 days, one message gets a full refund. A membership built on open P&amp;Ls can't have a fine-print exit. The door works both ways or the transparency means nothing.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ====== INITIATE ====== -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-label reveal">10 // initiate</div>
+    <h2 class="reveal">50 founding seats. <span class="amber">Open books from day one.</span></h2>
+    <p class="copy reveal">Join now and you're in the Slack today, in the first call this week, and reading the first open P&amp;L this month. If it's not the most transparent room in GCC ecommerce, the refund takes one message.</p>
+    <div class="hero-cta reveal">
+      <a class="cta-big" href="https://buy.stripe.com/bJefZja6sbUw963fG33Ru00" target="_blank" rel="noopener">[ Take a founding seat — AED 499/mo ]</a>
+    </div>
+    <p class="hero-note reveal" style="margin-top:14px">Founding price locked for life at AED 499. Seat 51 pays AED 799. AED 16/day; your coffee costs more.<br>There is no call to book and nobody to convince. Join, or don't. The brands get built either way.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>THE GCC ECOMMERCE OPERATOR NETWORK — DUBAI, UAE</span>
+    <span>OPEN BOOKS. REAL OPERATORS. NO GATEKEEPING.</span>
+  </div>
+</footer>
+
+<!-- ====== MOBILE STICKY CTA ====== -->
+<div class="sticky-cta">
+  <a href="https://buy.stripe.com/bJefZja6sbUw963fG33Ru00" target="_blank" rel="noopener">Join — AED 499/mo. 50 founding seats.</a>
+</div>
+
+<script>
+// ---- live system clock ----
+(function(){
+  var el=document.getElementById('sysClock');
+  function tick(){
+    var d=new Date();
+    var p=function(n){return String(n).padStart(2,'0')};
+    el.textContent='GST '+p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds());
+  }
+  tick();setInterval(tick,1000);
+})();
+
+// ---- Scroll reveal ----
+(function(){
+  if(!('IntersectionObserver' in window)){document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in')});return}
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+  },{threshold:.1});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+})();
+</script>
+</body>
+</html>
