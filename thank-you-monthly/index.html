@@ -241,18 +241,29 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 <script>
 // ---- Meta Pixel: Purchase (monthly) ----
 (function(){
-  if(typeof fbq!=='function')return;
-  var params=new URLSearchParams(window.location.search);
-  var sessionId=params.get('session_id');
-  var key=sessionId?'meta_purchase_'+sessionId:'meta_purchase_monthly';
-  if(sessionStorage.getItem(key))return;
-  sessionStorage.setItem(key,'1');
-  var eventId=sessionId||'purchase_monthly_'+Date.now();
-  fbq('track','Purchase',{
-    value:2.00,
-    currency:'AED',
-    content_name:'GCC Operator Network - Monthly'
-  },{eventID:eventId});
+  function trackMetaPurchase(){
+    if(typeof fbq!=='function'){setTimeout(trackMetaPurchase,50);return;}
+    var params=new URLSearchParams(window.location.search);
+    var sessionId=params.get('session_id');
+    var key=sessionId?'meta_purchase_'+sessionId:'meta_purchase_monthly';
+    if(sessionStorage.getItem(key))return;
+    var payload={
+      value:499.00,
+      currency:'AED',
+      content_name:'GCC Operator Network - Monthly',
+      content_type:'product',
+      contents:[{id:'gcc-monthly',quantity:1}]
+    };
+    if(sessionId){
+      fbq('track','Purchase',payload,{eventID:sessionId});
+    }else{
+      fbq('track','Purchase',payload);
+    }
+    sessionStorage.setItem(key,'1');
+  }
+  function start(){setTimeout(trackMetaPurchase,300);}
+  if(document.readyState==='complete')start();
+  else window.addEventListener('load',start);
 })();
 
 // ---- TikTok Pixel: CompletePayment (monthly) ----
@@ -266,7 +277,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   var eventId=sessionId||'purchase_monthly_'+Date.now();
   ttq.track('CompletePayment',{
     contents:[{content_id:'gcc-monthly',content_type:'product',content_name:'GCC Operator Network - Monthly'}],
-    value:2.00,
+    value:499.00,
     currency:'AED',
     event_id:eventId
   });
