@@ -5,6 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The GCC Ecommerce Operator Network</title>
 <meta name="description" content="Sit inside a live ecommerce venture studio. Open P&Ls, real ad accounts, real decisions, two live calls a week, founders-only events across the UAE. AED 499/month founding membership.">
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','924522224009784');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=924522224009784&ev=PageView&noscript=1" alt=""></noscript>
+<!-- TikTok Pixel -->
+<script>
+!function(w,d,t){
+  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];
+  ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"];
+  ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};
+  for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);
+  ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e};
+  ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;
+  ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};
+  n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;
+  e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+  ttq.load('D8MFTNRC77U580P286P0');
+  ttq.page();
+}(window,document,'ttq');
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -627,6 +657,35 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
   },{threshold:.1});
   document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+})();
+
+// ---- Pixel: InitiateCheckout on Stripe CTA clicks ----
+(function(){
+  var plans={
+    'bJefZja6sbUw963fG33Ru00':{value:499,currency:'AED',content_name:'GCC Operator Network - Monthly',content_id:'gcc-monthly'},
+    'cNi14p3I44s45TRctR3Ru01':{value:3999,currency:'AED',content_name:'GCC Operator Network - Annual',content_id:'gcc-annual'}
+  };
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a[href*="buy.stripe.com"]');
+    if(!a)return;
+    var href=a.getAttribute('href')||'';
+    var plan=plans['bJefZja6sbUw963fG33Ru00'];
+    for(var id in plans){if(href.indexOf(id)!==-1){plan=plans[id];break;}}
+    if(typeof fbq==='function'){
+      fbq('track','InitiateCheckout',{
+        value:plan.value,
+        currency:plan.currency,
+        content_name:plan.content_name
+      });
+    }
+    if(typeof ttq!=='undefined'){
+      ttq.track('InitiateCheckout',{
+        contents:[{content_id:plan.content_id,content_type:'product',content_name:plan.content_name}],
+        value:plan.value,
+        currency:plan.currency
+      });
+    }
+  },true);
 })();
 </script>
 </body>
